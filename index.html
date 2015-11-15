@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>The Frugal Brewer</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/source.css">
+
     <style src="app.js"></style>
   </head>
   <body>
@@ -15,12 +17,62 @@
 
     </header>
     <main>
-      <div class="top-cta">
-        <h2>The Frugal Brewer</h2>
+      <div class="cta-container">
+
+        <div class="top-cta">
+          <h2>The Frugal Brewer</h2>
+        </div>
+        <div class="cta-btn">
+          <button type="button" name="cta">Get Started Now</button>
+        </div>
       </div>
-      <div class="cta-btn">
-        <button type="button" name="cta">Get Started Now</button>
+      <div class="input-container">
+        <div class="recipe-list">
+
+        </div>
+        <div class="recipe-inputs">
+          <form>
+            <label for="name">
+              <input type="text" name="name">
+            </label>
+            <select class="" name="brew-type">
+              <optgroup label="Type">
+                <option></option>
+              </optgroup>
+            </select>
+            <select class="" name="">
+              <optgroup label="beer-styles">
+                <option></option>
+              </optgroup>
+            </select>
+            <textarea name="description" rows="8" cols="40"></textarea>
+          </form>
+          <form class="" action="index.html">
+            <label for="">Fermentables<input type="search" name="name" value=""></label>
+            <label for="">Hops<input type="search" name="name" value=""></label>
+            <label for="">Yeast<input type="search" name="name" value=""></label>
+            <label for="">Extras<input type="search" name="name" value=""></label>
+          </form>
+        </div>
+        <div class="brew-equations">
+
+        </div>
+      </div>
+      <div class="resources-container">
+        <div class="brew-calculator">
+
+        </div>
+        <div class="brew-books">
+
+        </div>
+        <div class="brew-supplies">
+
+        </div>
       </div>
     </main>
+    <footer>
+    <h3>I'll Never Forget You Frugal Brewer</h3>
+    <label for="email-list">Sign Up For Our Newsletter<input type="text" name="email-list" value="" placeholder="Enter your email"></label>
+    </footer>
   </body>
 </html>
