@@ -7,14 +7,14 @@ $(document).ready(function() {
   var fermentables = JSON.parse(localStorage.getItem('fermentables'));
   var filteredFermentables = JSON.parse(localStorage.getItem('filteredFermentables'));
 
-  var filterFermentables = function() {
-    var filterFermentables = [];
+  var parseFermentables = function() {
+    var workingArray = [];
     for (var i = 0; i < fermentables.length; i++) {
       if (fermentables[i].potential) {
-        filterFermentables = filterFermentables.concat(fermentables[i]);
+        workingArray = workingArray.concat(fermentables[i]);
       }
     }
-    localStorage.setItem('filteredFermentables', JSON.stringify( filteredFermentables));
+    localStorage.setItem('filteredFermentables', JSON.stringify( workingArray));
   };
 
   var requestFunction = function(startPage, stopPage) {
@@ -57,10 +57,12 @@ $(document).ready(function() {
     });
   } else {
     console.log(JSON.parse(localStorage.getItem('fermentables')));
-    filterFermentables();
-    console.log(JSON.parse(localStorage.getItem('filteredFermentables')));
+    parseFermentables();
+
     fermentablesOptions();
+
   }
+
 
 
 
