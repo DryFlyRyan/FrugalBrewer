@@ -6,10 +6,12 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+    integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+    crossorigin="anonymous">
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/united/bootstrap.min.css" crossorigin="anonymous">
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
@@ -21,11 +23,13 @@
   </head>
   <body>
     <header>
+      <nav class="navbar navbar-default col-md-12">
 
-      <div class="title-box">
-        <h1>The Frugal Brewer</h1>
-      </div>
+        <div class="header-box col-md-4 col-md-offset-4">
+          <h1>The Frugal Brewer</h1>
+        </div>
 
+      </nav>
     </header>
     <main>
       <div class="cta-container">
@@ -37,11 +41,11 @@
           <button type="button" name="cta">Get Started Now</button>
         </div>
       </div>
-      <div class="input-container">
+      <div class="input-container col-lg-12 row">
         <div class="recipe-list">
 
         </div>
-        <div class="recipe-inputs">
+        <div class="recipe-inputs col-md-6 col-md-offset-3 panel">
           <form>
             <label for="name">Name
               <input type="text" name="name">
@@ -61,7 +65,7 @@
             <textarea name="description" rows="8" cols="40"></textarea></br>
           </form>
           <form class="" action="index.html">
-            <select id="fermentables-selector"class="" name="">
+            <label for="fermentables-selector">Fermentables</label><select id="fermentables-selector"class="" name="">
               <optgroup label="fermentables">
               </optgroup>
             </select></br>
@@ -70,11 +74,11 @@
             <label for="">Extras<input type="search" name="name" value=""></label></br>
           </form>
         </div>
-        <div class="brew-equations">
+        <div class="brew-equations panel col-md-3 col-md-offset-9">
 
         </div>
       </div>
-      <div class="resources-container">
+      <div class="resources-container row">
         <div class="brew-calculator">
 
         </div>
