@@ -5,7 +5,7 @@ $(document).ready(function() {
 
   var workingData = [];
   var fermentables = JSON.parse(localStorage.getItem('fermentables'));
-  var filteredFermentables = JSON.parse(localStorage.getItem('filteredFermentables'));
+  var fermentablesFiltered = JSON.parse(localStorage.getItem('fermentablesFiltered'));
 
 
 
@@ -28,28 +28,31 @@ $(document).ready(function() {
         fermentables = workingData;
         localStorage.setItem(destination, JSON.stringify(fermentables));
         // console.log(JSON.parse(localStorage.getItem('fermentables')));
-        parseFermentables(fermentablesOptions);
+        filterData(fermentables, fermentablesFiltered, "potential", 'fermentables');
       }
     });
   };
 
-  var parseFermentables = function() {
-    console.log("parseFermentables called");
+  var filterData = function(sourceArray, filteredArray, filterCriteria, categoryName) {
+    console.log("filterData called");
+    // var criteria = JSON.parse(filterCriteria);
     var workingArray = [];
-    for (var i = 0; i < fermentables.length; i++) {
-      if (fermentables[i].potential) {
-        workingArray = workingArray.concat(fermentables[i]);
+    for (var i = 0; i < sourceArray.length; i++) {
+      var target = JSON.parse("[{sourceArray[i]." + filterCriteria + "}]")
+      if (target) {
+        workingArray = workingArray.concat(sourceArray[i]);
       }
     }
-    filteredFermentables = workingArray;
-    localStorage.setItem('filteredFermentables', JSON.stringify( workingArray));
-    fermentablesOptions();
+    filteredArray = workingArray;
+    localStorage.setItem(categoryName + 'Filtered', JSON.stringify(workingArray));
+    optionsAppender(filteredArray, categoryName);
   };
 
-  var fermentablesOptions = function () {
-    var target = $(document).find('#fermentables-selector').children('optgroup');
-    for(var i = 0; i < filteredFermentables.length; i++) {
-      var name = filteredFermentables[i].name;
+  var optionsAppender = function (sourceArray, categoryName) {
+    console.log('optionsAppender Called');
+    var target = $(document).find('#'+ categoryName + '-selector').children('optgroup');
+    for(var i = 0; i < sourceArray.length; i++) {
+      var name = sourceArray[i].name;
       $(target).append('<option>' + name + '</option>');
     }
   };
@@ -67,8 +70,8 @@ $(document).ready(function() {
     });
   }
 
-  if (filteredFermentables) {
-    fermentablesOptions();
+  if (fermentablesFiltered) {
+    optionsAppender();
   }
 
 
