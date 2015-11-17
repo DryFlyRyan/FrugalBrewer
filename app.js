@@ -7,15 +7,7 @@ $(document).ready(function() {
   var fermentables = JSON.parse(localStorage.getItem('fermentables'));
   var filteredFermentables = JSON.parse(localStorage.getItem('filteredFermentables'));
 
-  var parseFermentables = function() {
-    var workingArray = [];
-    for (var i = 0; i < fermentables.length; i++) {
-      if (fermentables[i].potential) {
-        workingArray = workingArray.concat(fermentables[i]);
-      }
-    }
-    localStorage.setItem('filteredFermentables', JSON.stringify( workingArray));
-  };
+
 
   var requestFunction = function(startPage, stopPage) {
     var currentPage = startPage;
@@ -27,17 +19,31 @@ $(document).ready(function() {
       if (currentPage <= lastPage) {
         requestFunction(currentPage, lastPage);
       } else {
-        localStorage.setItem('fermentables', JSON.stringify(workingData));
+        fermentables = workingData;
+        localStorage.setItem('fermentables', JSON.stringify(fermentables));
         // console.log(JSON.parse(localStorage.getItem('fermentables')));
+        parseFermentables(fermentablesOptions);
       }
     });
+  };
+
+  var parseFermentables = function() {
+    console.log("parseFermentables called");
+    var workingArray = [];
+    for (var i = 0; i < fermentables.length; i++) {
+      if (fermentables[i].potential) {
+        workingArray = workingArray.concat(fermentables[i]);
+      }
+    }
+    filteredFermentables = workingArray;
+    localStorage.setItem('filteredFermentables', JSON.stringify( workingArray));
+    fermentablesOptions();
   };
 
   var fermentablesOptions = function () {
     var target = $(document).find('#fermentables-selector').children('optgroup');
     for(var i = 0; i < filteredFermentables.length; i++) {
       var name = filteredFermentables[i].name;
-      console.log(name);
       $(target).append('<option>' + name + '</option>');
     }
   };
@@ -51,19 +57,13 @@ $(document).ready(function() {
       // console.log(data.data);
       if (pageNumber < totalPages) {
         requestFunction(pageNumber+1, totalPages);
-      } else {
-        localStorage.setItem('fermentables', JSON.stringify(workingData));
       }
     });
-  } else {
-    console.log(JSON.parse(localStorage.getItem('fermentables')));
-    parseFermentables();
-
-    fermentablesOptions();
-
   }
 
-
+  if (filteredFermentables) {
+    fermentablesOptions();
+  }
 
 
 
