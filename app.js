@@ -9,18 +9,24 @@ $(document).ready(function() {
 
 
 
-  var requestFunction = function(startPage, stopPage) {
+  var requestFunction = function(startPage, stopPage, source) {
+
     var currentPage = startPage;
     var lastPage = stopPage;
-    $.get('https://cors-anywhere.herokuapp.com/http://api.brewerydb.com/v2/fermentables/?key=166f0b6348fdccde864dc9aecb3d50bb&p='+ (currentPage).toString()).done(function(data) {
+    var destination = source;
+    if (typeof destination !== 'string') {
+      console.log('requestFunction(source) must be a string');
+      destination = source.toString();
+    }
+    $.get('https://cors-anywhere.herokuapp.com/http://api.brewerydb.com/v2/' + destination + '/?key=166f0b6348fdccde864dc9aecb3d50bb&p='+ (currentPage).toString()).done(function(data) {
       workingData = workingData.concat(data.data);
       // console.log(workingData)
       currentPage += 1;
       if (currentPage <= lastPage) {
-        requestFunction(currentPage, lastPage);
+        requestFunction(currentPage, lastPage, destination);
       } else {
         fermentables = workingData;
-        localStorage.setItem('fermentables', JSON.stringify(fermentables));
+        localStorage.setItem(destination, JSON.stringify(fermentables));
         // console.log(JSON.parse(localStorage.getItem('fermentables')));
         parseFermentables(fermentablesOptions);
       }
@@ -56,7 +62,7 @@ $(document).ready(function() {
       workingData = workingData.concat(data.data);
       // console.log(data.data);
       if (pageNumber < totalPages) {
-        requestFunction(pageNumber+1, totalPages);
+        requestFunction(pageNumber+1, totalPages, 'fermentables');
       }
     });
   }
