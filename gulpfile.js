@@ -12,6 +12,7 @@ gulp.task('serve', ['sass', 'compress'], function() {
 	});
 
 	gulp.watch("./**/*.scss", ['sass']);
+	gulp.watch("./js/*.js", ['compress']);
 	gulp.watch("./*.html").on('change', browserSync.reload);
 
 });

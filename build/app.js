@@ -1,7 +1,7 @@
 // console.log('doc loading');
 
 $(document).ready(function() {
-  // console.log('doc ready');
+  console.log('doc ready');
 
   var workingDataFermentables = [];
   var fermentables = JSON.parse(localStorage.getItem('fermentables'));
@@ -134,6 +134,26 @@ $(document).ready(function() {
 
   // console.log(yeasts);
 
+
+ // Photo API
+
+ var photoData = JSON.parse(localStorage.getItem('photoData'));
+
+ var gettyAPI = 's9rbwtf6gbnjt7tghrpyfwva';
+
+ $.ajax({
+   type: 'GET',
+   url:'https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,referral_destinations&sort_order=best&phrase=homebrew',
+   beforeSend: function(request) {
+     request.setRequestHeader("Api-Key", gettyAPI);
+   }})
+   .done(function(data) {
+   console.log('got data');
+   console.log(data);
+  //  photoData = data;
+  //  localStorage.setItem(JSON.stringify(data));
+
+ });
 
 
 

@@ -1,12 +1,68 @@
 // @import "normalize";
 
+@mixin flexBox {
+display: -webkit-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+}
+
+@mixin flexColCenter {
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+body {
+  min-height: 100%;
+  height: 100vh;
+}
+
+.navbar {
+  margin-top: 1%;
+  width: 100%;
+  // left: -5%;
+  // overflow: hidden;
+  // position: absolute;
+  border-radius: 0 !important;
+}
+
 .header-box {
   h1 {
     text-align: center;
+    margin: auto 0;
+    padding: auto 0;
   }
+}
+
+// main {
+//   min-height: 100%;
+// }
+
+.cta-container {
+  // @include flexBox;
+  // @include flexColCenter;
+  min-height: 100%;
+  height: 100vh;
+}
+
+.jumbotron {
+  margin-top: 25%;
+  width: 90%;
 }
 
 .footer-cta {
   text-align: center;
   color: red;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  .footer-input {
+    display: inline;
+  }
+  .footer-label {
+    display: inline-block;
+  }
 }
