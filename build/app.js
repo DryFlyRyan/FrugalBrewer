@@ -6,14 +6,25 @@ $(document).ready(function() {
   var workingDataFermentables = [];
   var fermentables = JSON.parse(localStorage.getItem('fermentables'));
   var fermentablesFiltered = JSON.parse(localStorage.getItem('fermentablesFiltered'));
+  var fermentablesOptions = [];
 
   var workingDataHops = [];
   var hops = JSON.parse(localStorage.getItem('hops'));
   var hopsFiltered = JSON.parse(localStorage.getItem('hopsFiltered'));
+  var hopsOptions = [];
 
   var workingDataYeasts = [];
   var yeasts = JSON.parse(localStorage.getItem('yeasts'));
   var yeastsFiltered = JSON.parse(localStorage.getItem('yeastsFiltered'));
+
+  var workingDataAdjuncts = [];
+  var adjuncts = JSON.parse(localStorage.getItem('adjuncts'));
+  var adjunctsFiltered = JSON.parse(localStorage.getItem('adjunctsFiltered'));
+
+  var workingDataStyles = [];
+  var styles = JSON.parse(localStorage.getItem('styles'));
+  var stylesFiltered = JSON.parse(localStorage.getItem('stylesFiltered'));
+
 
 
   var requestFunction = function(startPage, stopPage, sourceArray, filteredArray, workingArray, filterCriteria, categoryName) {
@@ -21,7 +32,7 @@ $(document).ready(function() {
     var currentPage = startPage;
     var lastPage = stopPage;
     var destination = categoryName;
-    // console.log('loop ', currentPage);
+    console.log('loop ', currentPage);
 
     $.get('https://cors-anywhere.herokuapp.com/http://api.brewerydb.com/v2/' + destination + '/?key=166f0b6348fdccde864dc9aecb3d50bb&p='+ (currentPage).toString()).done(function(data) {
       workingArray = workingArray.concat(data.data);
@@ -32,18 +43,23 @@ $(document).ready(function() {
       } else {
         sourceArray = workingArray;
         localStorage.setItem(destination, JSON.stringify(sourceArray));
-        // console.log(JSON.parse(localStorage.getItem('fermentables')));
         filterData(sourceArray, filteredArray, filterCriteria, categoryName);
       }
+    }).fail(function(response) {
+      console.log("Fail Log: ", response);
     });
   };
 
   var filterData = function(sourceArray, filteredArray, filterCriteria, categoryName) {
-    // console.log("filterData called");
+    console.log("filterData called");
     var workingArray = [];
     for (var i = 0; i < sourceArray.length; i++) {
       if (sourceArray[i].hasOwnProperty(filterCriteria)) {
-        workingArray = workingArray.concat(sourceArray[i]);
+        if (categoryName === 'styles') {
+          workingArray = workingArray.concat(sourceArray[i].name);
+        } else {
+          workingArray = workingArray.concat(sourceArray[i]);
+        }
       }
     }
     filteredArray = workingArray;
@@ -56,6 +72,7 @@ $(document).ready(function() {
     var target = $(document).find('#'+ categoryName + '-selector').children('optgroup');
 
     for(var i = 0; i < sourceArray.length; i++) {
+
       if (categoryName !== 'yeasts') {
       var name = sourceArray[i].name;
       $(target).append('<option>' + name + '</option>');
@@ -70,6 +87,15 @@ $(document).ready(function() {
       }
     }
   };
+
+  // var autocompleteOptionsHops = function (originArray, destinationArray) {
+  //   var workingArray = [];
+  //   for (var i = 0; i < originArray.length; i++) {
+  //     workingArray.push(originArray[i].name);
+  //   }
+  //   destinationArray = workingArray;
+  //   console.log(destinationArray);
+  // };
 
   if (!fermentables) {
     // console.log('loop 1');
@@ -88,6 +114,8 @@ $(document).ready(function() {
   } else {
     optionsAppender(fermentables, 'fermentables');
   }
+
+
 
   if (!hops) {
     // console.log('loop 1');
@@ -108,52 +136,74 @@ $(document).ready(function() {
     optionsAppender(hopsFiltered, 'hops');
   }
 
+  // // autocompleteOptionsHops(hopsFiltered, hopsOptions);
+  //
+  // $('#hops-selector').autocomplete({
+  //   source: hopsOptions
+  // });
+
+
   if (!yeasts) {
-    console.log('loop 1');
-    $.get('https://cors-anywhere.herokuapp.com/http://api.brewerydb.com/v2/hops/?key=166f0b6348fdccde864dc9aecb3d50bb', function() {
+    // console.log('loop 1');
+    $.get('https://cors-anywhere.herokuapp.com/http://api.brewerydb.com/v2/yeasts/?key=166f0b6348fdccde864dc9aecb3d50bb', function() {
     }).done(function(data){
       // console.log(data);
       // console.log('data delivered!');
       var pageNumber = data.currentPage;
       var totalPages = data.numberOfPages;
+      console.log('number of yeast pages = ', totalPages);
       // console.log("pageNumber = ", pageNumber);
       workingDataYeasts = workingDataYeasts.concat(data.data);
       // console.log(data.data);
       if (pageNumber < totalPages) {
-        requestFunction(pageNumber+1, totalPages, yeasts, yeastsFiltered, workingDataYeasts, 'supplier', 'yeasts');
+        requestFunction(pageNumber+1, totalPages, yeasts, yeastsFiltered, workingDataYeasts, 'productId', 'yeasts');
       }
     });
   } else {
     optionsAppender(yeastsFiltered, 'yeasts');
   }
 
-  $.get('https://cors-anywhere.herokuapp.com/http://api.brewerydb.com/v2/adjuncts/?key=166f0b6348fdccde864dc9aecb3d50bb&p=3', function() {
+  if (!adjuncts) {
+    console.log('loop 1');
+    $.get('https://cors-anywhere.herokuapp.com/http://api.brewerydb.com/v2/adjuncts/?key=166f0b6348fdccde864dc9aecb3d50bb', function() {
+    }).done(function(data){
+      // console.log(data);
+      // console.log('data delivered!');
+      var pageNumber = data.currentPage;
+      var totalPages = data.numberOfPages;
+      console.log('Number of Adjunct Pages: ', totalPages);
+      // console.log("pageNumber = ", pageNumber);
+      workingDataAdjuncts = workingDataAdjuncts.concat(data.data);
+      // console.log(data.data);
+      if (pageNumber < totalPages) {
+        requestFunction(pageNumber+1, totalPages, adjuncts, adjunctsFiltered, workingDataAdjuncts, 'name', 'adjuncts');
+      }
+    });
+  } else {
+    optionsAppender(adjunctsFiltered, 'adjuncts');
+  }
+
+
+  //This one had to be freaking different ...
+
+  if (!styles) {
+    console.log('loop 1');
+    $.get('https://cors-anywhere.herokuapp.com/http://api.brewerydb.com/v2/styles/?key=166f0b6348fdccde864dc9aecb3d50bb', function() {
+    }).done(function(data){
+      workingDataAdjuncts = workingDataAdjuncts.concat(data.data);
+      requestFunction(1, 1, styles, stylesFiltered, workingDataStyles, 'ibuMin', 'styles');
+    });
+  } else {
+    optionsAppender(stylesFiltered, 'styles');
+  }
+
+
+
+  $.get('https://cors-anywhere.herokuapp.com/http://api.brewerydb.com/v2/styles/?key=166f0b6348fdccde864dc9aecb3d50bb&p=3', function() {
   }).done(function(data){
     console.log(data);
   });
 
-  // console.log(yeasts);
-
-
- // Photo API
-
- var photoData = JSON.parse(localStorage.getItem('photoData'));
-
- var gettyAPI = 's9rbwtf6gbnjt7tghrpyfwva';
-
- $.ajax({
-   type: 'GET',
-   url:'https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,referral_destinations&sort_order=best&phrase=homebrew',
-   beforeSend: function(request) {
-     request.setRequestHeader("Api-Key", gettyAPI);
-   }})
-   .done(function(data) {
-   console.log('got data');
-   console.log(data);
-  //  photoData = data;
-  //  localStorage.setItem(JSON.stringify(data));
-
- });
 
 
 

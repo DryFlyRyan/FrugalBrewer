@@ -62,17 +62,18 @@ body {
   color: red;
 }
 
-.modal {
+.modal-body {
   width: 80%;
+  overflow-y: auto;
 }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  .footer-input {
-    display: inline;
-  }
-  .footer-label {
-    display: inline-block;
-  }
-}
+// footer {
+//   position: absolute;
+//   bottom: 0;
+//   .footer-input {
+//     display: inline;
+//   }
+//   .footer-label {
+//     display: inline-block;
+//   }
+// }
