@@ -3,7 +3,7 @@ var minify = require('gulp-minify');
 var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
 
-gulp.task('serve', ['sass'], function() {
+gulp.task('serve', ['sass', 'compress'], function() {
 
 	browserSync.init({
 			server: {
