@@ -14,16 +14,17 @@ display: flex;
 }
 
 body {
-  min-height: 100%;
-  height: 100vh;
+  background: url('./images/orangeBubbles.jpg')no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .navbar {
   margin-top: 1%;
   width: 100%;
-  // left: -5%;
-  // overflow: hidden;
-  // position: absolute;
+
   border-radius: 0 !important;
 }
 
@@ -35,13 +36,17 @@ body {
   }
 }
 
-// main {
-//   min-height: 100%;
-// }
+
+.photo-container {
+  position: fixed;
+  height: 100%;
+  background: url('./build/images/kettles.jpg') cover norepeat;
+}
 
 .cta-container {
   // @include flexBox;
   // @include flexColCenter;
+  background: transparent;
   min-height: 100%;
   height: 100vh;
 }
@@ -49,11 +54,16 @@ body {
 .jumbotron {
   margin-top: 25%;
   width: 90%;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .footer-cta {
   text-align: center;
   color: red;
+}
+
+.modal {
+  width: 80%;
 }
 
 footer {
