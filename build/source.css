@@ -84,8 +84,16 @@ option {
 #styles-selector {
   width: 83.6%; }
 
+#name-box,
 #new-recipe {
   display: none; }
+
+#name-box label {
+  font-size: 20pt; }
+
+#name-box input {
+  width: 90%;
+  font-size: 16pt; }
 
 #recipe-list,
 #recipe-builder {

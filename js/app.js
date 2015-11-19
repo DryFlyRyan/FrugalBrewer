@@ -278,10 +278,17 @@ $(document).ready(function() {
 //  };
 
 
+// $('#new-recipe-btn').on('click', function () {
+//   $('#recipe-frontpage').fadeOut('slow', function () {
+//     $('#new-recipe').fadeIn();
+//     $('#recipe-builder').css("opacity", "1");
+//   });
+// });
+
+
 $('#new-recipe-btn').on('click', function () {
-  $('#recipe-frontpage').fadeOut('slow', function () {
-    $('#new-recipe').fadeIn();
-    $('#recipe-builder').css("opacity", "1");
+  $('#recipe-search, #new-recipe-btn').fadeOut('slow', function () {
+    $('#name-box').fadeIn();
   });
 });
 

@@ -61,15 +61,22 @@
 
                 <div class="" id="recipe-frontpage">
                   <button type="submit" name="button" class="button-large btn btn-primary btn-lg" id="new-recipe-btn">Make a New Recipe</button>
+                  <div class="" id='name-box'>
+                    <label for="name">Name your Brew:</label>
+                    <input type="text" name="name" placeholder="">
+                    <a href="#" id="name-submit">
+                      <span class="icon glyphicon glyphicon-plus-sign"></span></a>
+                  </div>
 
-                  <input type="button" name="name" value="" id="brew-name">
-                  <button type="submit" name="button" class="button-large btn btn-primary btn-lg">Search for Recipes</button>
+
+                  <button type="submit" name="button" class="button-large btn btn-primary btn-lg" id='recipe-search'>Search for Recipes</button>
                 </div>
 
                 <form class="form" id="new-recipe">
                   <div id='name-div'>
                     <label for="name">Name</label>
                     <input id="name-box" type="text" name="name">
+
                   </div>
                   <div id="brew-div">
                     <label for="brew-type">Brew Type</label></br>
