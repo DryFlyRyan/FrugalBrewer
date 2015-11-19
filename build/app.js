@@ -69,20 +69,21 @@ $(document).ready(function() {
 
   var optionsAppender = function (sourceArray, categoryName) {
     // console.log('optionsAppender Called');
-    var target = $(document).find('#'+ categoryName + '-selector').children('optgroup');
+    var target = $(document).find('#'+ categoryName + '-selector').children('.api-destination');
 
     for(var i = 0; i < sourceArray.length; i++) {
+      var id = sourceArray[i].id;
+      var name = sourceArray[i].name;
 
       if (categoryName !== 'yeasts') {
-      var name = sourceArray[i].name;
-      $(target).append('<option>' + name + '</option>');
+      $(target).append('<option data-id="'+id+'" data-name="'+name+'" data-source="'+categoryName+'">' + name + '</option>');
       } else {
       var supplier = sourceArray[i].supplier;
       var productId = sourceArray[i].productId;
-      var name = sourceArray[i].name;
       var format = sourceArray[i].yeastFormat;
       var type = sourceArray[i].yeastType;
-      $(target).append('<option>' + name + ' - ' + supplier + ' ' + productId + ' - ' + format + ' ' + type + ' yeast' + '</option>');
+      var fullName = name + ' - ' + supplier + ' ' + productId + ' - ' + format + ' ' + type + ' yeast';
+      $(target).append('<option data-id="'+id+' data-name="'+fullName+'" data-source="'+categoryName+'">' + name + ' - ' + supplier + ' ' + productId + ' - ' + format + ' ' + type + ' yeast' + '</option>');
 
       }
     }
@@ -199,13 +200,90 @@ $(document).ready(function() {
 
 
 
-  $.get('https://cors-anywhere.herokuapp.com/http://api.brewerydb.com/v2/styles/?key=166f0b6348fdccde864dc9aecb3d50bb&p=3', function() {
-  }).done(function(data){
-    console.log(data);
+  // $.get('https://cors-anywhere.herokuapp.com/http://api.brewerydb.com/v2/styles/?key=166f0b6348fdccde864dc9aecb3d50bb&p=3', function() {
+  // }).done(function(data){
+  //   console.log(data);
+  // });
+
+
+  // Click Handlers for Adding Ingredients
+
+  var ingredientAdd = function (ingredientId, ingredientName, categoryName, targetId) {
+
+    $(targetId).append(
+      '<span class="builder-span" data-id="'+ingredientId+'">'+ingredientName+'</span></br>'
+    );
+
+  };
+
+  $('a').click(function (event) {
+    console.log(event.target);
+    if ($(this).attr('id')) {
+      console.log('if statement');
+      var localSelectId = $(this).closest('div').find('option:selected').attr('data-id');
+
+      var localSelectName = $(this).closest('div').find('option:selected').attr('data-name');
+
+      // var selection = localSelect[0].value;
+      if ($(this).attr('id') === 'name-submit') {
+
+      } else if ($(this).attr('id') === 'brewtype-submit') {
+        ingredientAdd(localSelectId, localSelectName, "Type", "#builder-type");
+      } else if ($(this).attr('id') === 'styles-submit') {
+        ingredientAdd(localSelectId, localSelectName, "Style", "#builder-style");
+
+      } else if ($(this).attr('id') === 'fermentables-submit') {
+         ingredientAdd(localSelectId, localSelectName, "Fermentables", "#builder-fermentables");
+
+      } else if ($(this).attr('id') === 'hops-submit') {
+        ingredientAdd(localSelectId, localSelectName, "Hops", "#builder-hops");
+
+      } else if ($(this).attr('id') === 'yeasts-submit') {
+        ingredientAdd(localSelectId, localSelectName, "Yeast", "#builder-yeasts");
+      } else if ($(this).attr('id') === 'adjuncts-submit') {
+        ingredientAdd(localSelectId, localSelectName, "Adjuncts", "#builder-adjuncts");
+      }
+    }
+  });
+
+  $('#name-box').on('keyup keydown keypress', function(event) {
+    var input = $('#name-box').val();
+    console.log(input);
+    $('#name-display').text(input);
+  });
+
+  $('#description-box').on('keyup keydown keypress', function(event) {
+    var input = $('#description-box').val();
+    console.log(input);
+    $('#directions-display').text(input);
+  });
+
+  $('#notes-box').on('keyup keydown keypress', function(event) {
+    var input = $('#notes-box').val();
+    console.log(input);
+    $('#notes-display').text(input);
   });
 
 
+//   var heightEqualizer = function () {
+//     var panels = $(document).getElementByClassName('panel');
+//     var tallest = null;
+//     $.each(panels, function() {
+//       if ($(this).height() > $(tallest)) {
+//         tallest = $(this).height();
+//       } else {
+//         $(this).height(tallest);
+//       }
+//     });
+//  };
 
+
+$('#new-recipe-btn').on('click', function () {
+  $('#recipe-frontpage').fadeOut('slow', function () {
+    $('#new-recipe').fadeIn();
+    $('#recipe-builder').css("opacity", "1");
+  });
+});
 
 
 });

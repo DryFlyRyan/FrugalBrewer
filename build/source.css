@@ -40,29 +40,71 @@ body {
   overflow-y: auto; }
 
 .panel {
-  padding: 1%; }
+  padding: 1%;
+  min-height: 100% !important;
+  display: block; }
+
+.button-large {
+  width: 100%; }
 
 label {
   float: left;
-  margin-right: 2.5%; }
+  margin-right: 2.5%;
+  display: block;
+  width: 100%; }
 
 input {
   display: inline-block;
-  max-width: 100% !important; }
+  max-width: 100%; }
 
 select {
   margin-right: 2.5%;
-  display: inline-block;
-  width: 100%; }
+  width: 60%;
+  margin-bottom: 1.5%; }
 
 option {
   overflow: hidden;
   display: inline-block; }
 
+.icon {
+  margin-left: 1.5%;
+  padding-left: 1.5%; }
+
+.weight-selector {
+  width: 10%; }
+
+.unit-selector {
+  width: 10%; }
+
 #name-box {
   display: inline-block;
-  width: 100%; }
+  min-width: 90%; }
+
+#brew-selector,
+#styles-selector {
+  width: 83.6%; }
+
+#new-recipe {
+  display: none; }
+
+#recipe-list,
+#recipe-builder {
+  opacity: 0;
+  transition: .5s; }
+
+#new-recipe-btn {
+  margin-bottom: 2.5%; }
+
+.select-group label,
+.select-group select {
+  display: table-cell !important; }
+
+.select-group select {
+  width: 80%; }
 
 .modal-dialog {
   width: 100%;
   padding: 1%; }
+
+.builder-div {
+  height: 80%; }
