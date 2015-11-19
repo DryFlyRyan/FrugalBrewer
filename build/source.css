@@ -36,9 +36,33 @@ body {
 
 .modal-body {
   width: 100%;
+  margin-top: 5%;
   overflow-y: auto; }
+
+.panel {
+  padding: 1%; }
+
+label {
+  float: left;
+  margin-right: 2.5%; }
+
+input {
+  display: inline-block;
+  max-width: 100% !important; }
+
+select {
+  margin-right: 2.5%;
+  display: inline-block;
+  width: 100%; }
+
+option {
+  overflow: hidden;
+  display: inline-block; }
+
+#name-box {
+  display: inline-block;
+  width: 100%; }
 
 .modal-dialog {
   width: 100%;
-  height: 100%;
-  padding: 0; }
+  padding: 1%; }

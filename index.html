@@ -31,7 +31,7 @@
       <nav class="navbar navbar-default col-md-12">
 
         <div class="header-box col-md-4 col-md-offset-4">
-          <h1>The Frugal Brewer</h1>
+          <h1>FrugalBrewer</h1>
         </div>
 
       </nav>
@@ -40,7 +40,7 @@
 
       <div class="container-fluid cta-container">
         <div class='jumbotron jumbotron-fluid text-center pagination-centered center-block'>
-          <h2>The Frugal Brewer</h2>
+          <h2>FrugalBrewer</h2>
 
           <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" name="cta">Get Started Now</button>
 
@@ -52,11 +52,17 @@
         <div class="modal-dialog row" role="form">
           <div class="modal-content modal-body">
             <div class="container-fluid ">
-              <div class="panel panel-default">
+
+              <div class="panel panel-default col-md-4">
+
+              </div>
+
+              <div class="panel panel-default col-md-4">
                 <form class="form">
-                  <label for="name">Name
-                    <input type="text" name="name">
-                  </label></br>
+                  <label for="name">Name</label>
+                    <input id="name-box" type="text" name="name">
+                  </br>
+                  <label for="brew-type">Brew Type</label></br>
                   <select class="" name="brew-type">Type
                     <optgroup>
                       <option>All-Grain</option>
@@ -98,6 +104,11 @@
                   </label></br>
                 </form>
               </div>
+
+              <div class="panel panel-default col-md-4">
+
+              </div>
+
             </div>
           </div>
         </div>
