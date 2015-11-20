@@ -28,7 +28,7 @@ body {
 .jumbotron {
   margin-top: 25%;
   width: 90%;
-  background: rgba(0, 0, 0, 0.4); }
+  background: transparent; }
 
 .footer-cta {
   text-align: center;
