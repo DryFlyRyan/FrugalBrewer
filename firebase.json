@@ -1,5 +1,5 @@
 {
-  "firebase": "FrugalBrewer",
+  "firebase": "frugalbrewer",
   "public": "public",
   "ignore": [
     "firebase.json",

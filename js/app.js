@@ -282,15 +282,18 @@
 
         var fermentablesUnits = $('#fermentables-units').find('option:selected').attr('data-name');
 
+        var index = targetObject.fermentablesArray.length;
+
         console.log(fermentablesQty);
         console.log(fermentablesUnits);
 
         if (fermentablesQty && fermentablesUnits) {
          ingredientAdd(localSelectId, localSelectName, "#builder-fermentables", fermentablesQty, fermentablesUnits);
+
          var fermentablesObject = objectFinder(fermentablesFiltered, localSelectId);
          targetObject.fermentablesArray.push(fermentablesObject);
-         targetObject.fermentablesArray.quantity = fermentablesQty;
-         targetObject.fermentablesArray.units = fermentablesUnits;
+         targetObject.fermentablesArray[index].quantity = fermentablesQty;
+         targetObject.fermentablesArray[index].units = fermentablesUnits;
          localStorage.setItem('recipeArray', JSON.stringify(recipeArray));
          console.log(recipeArray);
        } else {
@@ -303,6 +306,8 @@
 
         var hopsUnits = $('#hops-units').find('option:selected').attr('data-name');
 
+        var index = targetObject.hopsArray.length || 0;
+
         console.log(hopsQty);
         console.log(hopsUnits);
 
@@ -310,8 +315,8 @@
          ingredientAdd(localSelectId, localSelectName, "#builder-hops", hopsQty, hopsUnits);
          var hopsObject = objectFinder(hopsFiltered, localSelectId);
          targetObject.hopsArray.push(hopsObject);
-         targetObject.hopsArray.quantity = hopsQty;
-         targetObject.hopsArray.units = hopsUnits;
+         targetObject.hopsArray[index].quantity = hopsQty;
+         targetObject.hopsArray[index].units = hopsUnits;
          localStorage.setItem('recipeArray', JSON.stringify(recipeArray));
          console.log(recipeArray);
        } else {
@@ -325,6 +330,8 @@
 
         var yeastsUnits = $('#yeasts-units').find('option:selected').attr('data-name');
 
+        var index = targetObject.yeastsArray.length || 0;
+
         console.log(yeastsQty);
         console.log(yeastsUnits);
 
@@ -332,8 +339,8 @@
          ingredientAdd(localSelectId, localSelectName, "#builder-yeasts", yeastsQty, yeastsUnits);
          var yeastsObject = objectFinder(yeastsFiltered, localSelectId);
          targetObject.yeastsArray.push(yeastsObject);
-         targetObject.yeastsArray.quantity = yeastsQty;
-         targetObject.yeastsArray.units = yeastsUnits;
+         targetObject.yeastsArray[index].quantity = yeastsQty;
+         targetObject.yeastsArray[index].units = yeastsUnits;
          localStorage.setItem('recipeArray', JSON.stringify(recipeArray));
          console.log(recipeArray);
        } else {
@@ -345,15 +352,19 @@
 
         var adjunctsUnits = $('#adjuncts-units').find('option:selected').attr('data-name');
 
+
+        var index = targetObject.adjunctsArray.length || 0;
+
+
         console.log(adjunctsQty);
         console.log(adjunctsUnits);
 
         if (adjunctsQty && adjunctsUnits) {
          ingredientAdd(localSelectId, localSelectName, "#builder-adjuncts", adjunctsQty, adjunctsUnits);
-         var adjunctsObject = objectFinder(adjunctsadjunctsFiltered, localSelectId);
-         targetObject.adjunctsadjunctsArray.push(adjunctsObject);
-         targetObject.adjunctsArray.quantity = adjunctsQty;
-         targetObject.adjunctsArray.units = adjunctsUnits;
+         var adjunctsObject = objectFinder(adjunctsFiltered, localSelectId);
+         targetObject.adjunctsArray.push(adjunctsObject);
+         targetObject.adjunctsArray[index].quantity = adjunctsQty;
+         targetObject.adjunctsArray[index].units = adjunctsUnits;
          localStorage.setItem('recipeArray', JSON.stringify(recipeArray));
          console.log(recipeArray);
        } else {
@@ -373,11 +384,6 @@
       }
     }
   };
-
-
-
-
-
 
   $('#description-box').on('keyup keydown keypress', function(event) {
     var input = $('#description-box').val();
@@ -473,6 +479,7 @@
       $('#shopping-list').css("opacity", "1");
       recipeList.push(targetRecipe);
       appendRecipe();
+      ingredientLister();
     } else if (!targetRecipe.styles) {
       alert("What style is this beer?");
     } else if (!targetRecipe.brewtype) {
@@ -495,19 +502,173 @@
   };
 
   var ingredientLister = function () {
-    for(var i = 0; i < recipeList.length; i++) {
-      var targetRecipe = recipeList[i]
+    console.log('listing ingredients');
+    for (var i = 0; i < recipeList.length; i++)
+      var targetRecipe = recipeList[i];
+
+      //fermentables
       for (var f = 0; f < targetRecipe.fermentablesArray.length; f++) {
+      console.log('writing fermentables');
+
+      // $('#sl-fermentables').empty();
+
       var targetId = targetRecipe.fermentablesArray[f].id;
 
-      var onPageId = $('#sl-fermentables').find('span').attr('data-id');
+      var targetQty = targetRecipe.fermentablesArray[f].quantity;
 
-      var onPageQty = $('#sl-fermentables').find('span').attr('data-id');
-        if (targetId === onPageId) {
+      var targetName = targetRecipe.fermentablesArray[f].name;
 
-        }
+      var targetUnits = targetRecipe.fermentablesArray[f].units;
+
+      var onPageId = targetId+targetName;
+      var onPageQty = targetQty+targetName;
+
+      console.log(targetQty);
+
+      console.log(targetId);
+      console.log(targetName);
+      console.log(targetUnits);
+      console.log(onPageId);
+
+      console.log(onPageQty);
+
+        // if ($('#'+onPageId).length) {
+        //   console.log('id matched');
+        //   var originalAmt = $('#'+onPageId+'q').data('qty');
+        //   var updatedAmt = originalAmt + targetQty;
+        //   $('#'+onPageQty+'q').data('qty', updatedAmt);
+        // } else {
+          // console.log('id not found');
+          $('#sl-fermentables').append(
+            '<span id="'+onPageId+'"data-id="'+ targetId + '">'+ targetName +' - </span>' +
+            '<span id="'+onPageId+'q"data-qty="' + targetQty + '">' + targetQty+ ' ' + targetUnits + '</span></br>'
+
+          );
+        // }
       }
-    }
+
+      for (var h = 0; h < targetRecipe.hopsArray.length; h++) {
+      console.log('writing hops');
+
+      // $('#sl-fermentables').empty();
+
+      var targetId = targetRecipe.hopsArray[h].id;
+
+      var targetQty = targetRecipe.hopsArray[h].quantity;
+
+      var targetName = targetRecipe.hopsArray[h].name;
+
+      var targetUnits = targetRecipe.hopsArray[h].units;
+
+      var onPageId = targetId+targetName;
+      var onPageQty = targetQty+targetName;
+
+      console.log(targetQty);
+
+      console.log(targetId);
+      console.log(targetName);
+      console.log(targetUnits);
+      console.log(onPageId);
+
+      console.log(onPageQty);
+
+        // if ($('#'+onPageId).length) {
+        //   console.log('id matched');
+        //   var originalAmt = $('#'+onPageId+'q').data('qty');
+        //   var updatedAmt = originalAmt + targetQty;
+        //   $('#'+onPageQty+'q').data('qty', updatedAmt);
+        // } else {
+          // console.log('id not found');
+          $('#sl-hops').append(
+            '<span id="'+onPageId+'"data-id="'+ targetId + '">'+ targetName +' - </span>' +
+            '<span id="'+onPageId+'q"data-qty="' + targetQty + '">' + targetQty+ ' ' + targetUnits + '</span></br>'
+
+          );
+        // }
+      }
+
+      for (var g = 0; g < targetRecipe.yeastsArray.length; g++) {
+      console.log('writing yeasts');
+
+      // $('#sl-fermentables').empty();
+
+      var targetId = targetRecipe.yeastsArray[g].id;
+
+      var targetQty = targetRecipe.yeastsArray[g].quantity;
+
+      var targetName = targetRecipe.yeastsArray[g].name;
+
+      var targetUnits = targetRecipe.yeastsArray[g].units;
+
+      var onPageId = targetId+targetName;
+      var onPageQty = targetQty+targetName;
+
+      console.log(targetQty);
+
+      console.log(targetId);
+      console.log(targetName);
+      console.log(targetUnits);
+      console.log(onPageId);
+
+      console.log(onPageQty);
+
+        // if ($('#'+onPageId).length) {
+        //   console.log('id matched');
+        //   var originalAmt = $('#'+onPageId+'q').data('qty');
+        //   var updatedAmt = originalAmt + targetQty;
+        //   $('#'+onPageQty+'q').data('qty', updatedAmt);
+        // } else {
+          // console.log('id not found');
+          $('#sl-yeasts').append(
+            '<span id="'+onPageId+'"data-id="'+ targetId + '">'+ targetName +' - </span>' +
+            '<span id="'+onPageId+'q"data-qty="' + targetQty + '">' + targetQty+ ' ' + targetUnits + '</span></br>'
+
+          );
+        // }
+      }
+
+      for (var a = 0; a < targetRecipe.adjunctsArray.length; a++) {
+      console.log('writing adjuncts');
+
+      // $('#sl-adjuncts').empty();
+
+      var targetId = targetRecipe.ajunctsArray[f].id;
+
+      var targetQty = targetRecipe.adjunctsArray[f].quantity;
+
+      var targetName = targetRecipe.adjunctsArray[f].name;
+
+      var targetUnits = targetRecipe.adjunctsArray[f].units;
+
+      var onPageId = targetId+targetName;
+      var onPageQty = targetQty+targetName;
+
+      console.log(targetQty);
+
+      console.log(targetId);
+      console.log(targetName);
+      console.log(targetUnits);
+      console.log(onPageId);
+
+      console.log(onPageQty);
+
+        // if ($('#'+onPageId).length) {
+        //   console.log('id matched');
+        //   var originalAmt = $('#'+onPageId+'q').data('qty');
+        //   var updatedAmt = originalAmt + targetQty;
+        //   $('#'+onPageQty+'q').data('qty', updatedAmt);
+        // } else {
+          // console.log('id not found');
+          $('#sl-adjuncts').append(
+            '<span id="'+onPageId+'"data-id="'+ targetId + '">'+ targetName +' - </span>' +
+            '<span id="'+onPageId+'q"data-qty="' + targetQty + '">' + targetQty+ ' ' + targetUnits + '</span></br>'
+
+          );
+        // }
+      }
+
+
+
   };
 
 });
