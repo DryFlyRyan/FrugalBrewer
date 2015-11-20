@@ -42,7 +42,7 @@
         <div class='jumbotron jumbotron-fluid text-center pagination-centered center-block'>
           <h2>FrugalBrewer</h2>
 
-          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" name="cta">Get Started Now</button>
+          <button type="button" class="btn btn-primary btn-lg start-btn" data-toggle="modal" data-target="#myModal" name="cta">Get Started Now</button>
 
         </div>
       </div>
@@ -73,11 +73,7 @@
                 </div>
 
                 <form class="form" id="new-recipe">
-                  <div id='name-div'>
-                    <label for="name">Name</label>
-                    <input id="name-box" type="text" name="name">
 
-                  </div>
                   <div id="brew-div">
                     <label for="brew-type">Brew Type</label></br>
                     <select id="brew-selector" class="select-group" name="brew-type">Type
@@ -104,13 +100,15 @@
                       <optgroup label="fermentables" class='api-destination'>
                       </optgroup>
                     </select>
-                    <input type="form" name="name" value="" class='weight-selector' placeholder="Amount">
+                    <input type="form" name="name" value="" class='weight-selector' placeholder="Amount" id = "fermentables-qty">
 
-                    <select class="unit-selector" name="">
+                    <select class="unit-selector" name="" id = "fermenables-units">
                       <optgroup label="Units">
-                        <option data-name="ounces">oz</option>
-                        <option data-name="grams">g</option>
-                        <option data-name="pounds">lbs</option>
+
+                        <option data-name="pound(s)">lbs</option>
+                        <option data-name="ounce(s)">oz</option>
+                        <option data-name="gram(s)">g</option>
+
                       </optgroup>
                     </select>
                     <a href="#" id='fermentables-submit'><span class="icon glyphicon glyphicon-plus-sign"></span></a>
@@ -121,17 +119,17 @@
                       <optgroup label="Hops" class='api-destination'>
                       </optgroup>
                     </select>
-                    <input type="form" name="name" value="" class='weight-selector' placeholder="Amount">
+                    <input type="form" name="name" value="" class='weight-selector' placeholder="Amount" id = "hops-qty">
 
-                    <select class="unit-selector" name="">
+                    <select class="unit-selector" name="" id = "hops-units">
                       <optgroup label="Units">
-                        <option data-name="ounces">oz</option>
-                        <option data-name="grams">g</option>
+                        <option data-name="ounce(s)">oz</option>
+                        <option data-name="gram(s)">g</option>
                       </optgroup>
                     </select>
-
                     <a href="#" id='hops-submit'><span class="icon glyphicon glyphicon-plus-sign"></span></a>
                   </div>
+
                   <div id="yeasts-div">
                     <label for="yeasts-selector">Yeast</label>
                     <select id="yeasts-selector" class="" name="">
@@ -139,9 +137,9 @@
                       </optgroup>
                     </select>
 
-                    <input type="form" name="name" value="" class='weight-selector' placeholder="Amount">
+                    <input type="form" name="name" value="" class='weight-selector' placeholder="Amount" id = "yeasts-qty">
 
-                    <select class="unit-selector" name="">
+                    <select class="unit-selector" name="" id = "yeasts-units">
                       <optgroup label="Units">
                         <option data-name="vial(s)">vial(s)</option>
                         <option data-name="packet(s)">packet(s)</option>
@@ -152,16 +150,16 @@
                   <div id="adjuncts-div">
                     <label for="adjuncts-selector" class='api-destination'>Extras</label>
                     <select id="adjuncts-selector"class="" name="">
-                      <optgroup label="adjuncts">
+                      <optgroup label="adjuncts" class="api-destination">
                       </optgroup>
                     </select>
-                    <input type="form" name="name" value="" class='weight-selector' placeholder="Amount">
+                    <input type="form" name="name" value="" class='weight-selector' placeholder="Amount" id = "adjuncts-qty">
 
-                    <select class="unit-selector" name="">
+                    <select class="unit-selector" name="" id = "adjuncts-units">
                       <optgroup label="Units">
-                        <option data-name="ounce">oz</option>
-                        <option data-name="grams">g</option>
-                        <option data-name="pounds">lbs</option>
+                        <option data-name="ounce" data-code="oz">oz</option>
+                        <option data-name="grams" data-code="g">g</option>
+                        <option data-name="pounds" data-code="lbs">lbs</option>
                       </optgroup>
                     </select>
                     <a href="#" id='adjuncts-submit'><span class="icon glyphicon glyphicon-plus-sign"></span></a>
@@ -178,43 +176,44 @@
 
               <div class="panel panel-default col-md-3" id="recipe-builder">
 
+                <h3>Name:</h3>
                 <div class="builder-div">
-                  <div id="builder-name">
-                    <h3>Name:</h3>
-                    <h4 id="name-display"></h4>
+                  <div id="builder-name" class="refreshable">
                   </div>
 
-                  <div id="builder-type">
-                    <h3>Brew Type:</h3>
+                  <h3>Brew Type:</h3>
+                  <div id="builder-type" class="refreshable">
                   </div>
 
-                  <div id="builder-style">
-                    <h3>Style:</h3>
+                  <h3>Style:</h3>
+                  <div id="builder-style" class="refreshable">
                   </div>
 
-                  <div id="builder-fermentables">
-                    <h3>Fermentables:</h3>
+                  <h3>Fermentables:</h3>
+                  <div id="builder-fermentables" class="refreshable">
                   </div>
 
-                  <div id="builder-hops">
-                    <h3>Hops:</h3>
+                  <h3>Hops:</h3>
+                  <div id="builder-hops" class="refreshable">
                   </div>
 
-                  <div id="builder-yeasts">
-                    <h3>Yeast:</h3>
+                  <h3>Yeast:</h3>
+                  <div id="builder-yeasts" class="refreshable">
                   </div>
 
-                  <div id="builder-adjuncts">
-                    <h3>Adjuncts:</h3>
+                  <h3>Extras:</h3>
+                  <div id="builder-adjuncts" class="refreshable">
                   </div>
 
-                  <div id="builder-directions">
                     <h3>Directions:</h3>
+                  <div id="builder-directions" class="refreshable">
+
                     <h4 id="directions-display"></h4>
                   </div>
 
-                  <div id="builder-notes">
-                    <h3>Notes:</h3>
+                  <h3>Notes:</h3>
+                  <div id="builder-notes" class="refreshable">
+
                     <h4 id="notes-display"></h4>
                   </div>
 

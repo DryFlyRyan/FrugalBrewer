@@ -8,6 +8,8 @@
 
   var recipeArray = JSON.parse(localStorage.getItem('recipeArray'));
 
+  var recipeList = [];
+
   if (!recipeArray) {
     recipeArray = [
       {
@@ -86,11 +88,11 @@
     var workingArray = [];
     for (var i = 0; i < sourceArray.length; i++) {
       if (sourceArray[i].hasOwnProperty(filterCriteria)) {
-        if (categoryName === 'styles') {
-          workingArray = workingArray.concat(sourceArray[i].name);
-        } else {
+        // if (categoryName === 'styles') {
+        //   workingArray = workingArray.concat(sourceArray[i].name);
+        // } else {
           workingArray = workingArray.concat(sourceArray[i]);
-        }
+        // }
       }
     }
     filteredArray = workingArray;
@@ -99,7 +101,7 @@
   };
 
   var optionsAppender = function (sourceArray, categoryName) {
-    // console.log('optionsAppender Called');
+    console.log('Adding', categoryName);
     var target = $(document).find('#'+ categoryName + '-selector').children('.api-destination');
 
     for(var i = 0; i < sourceArray.length; i++) {
@@ -114,7 +116,7 @@
       var format = sourceArray[i].yeastFormat;
       var type = sourceArray[i].yeastType;
       var fullName = name + ' - ' + supplier + ' ' + productId + ' - ' + format + ' ' + type + ' yeast';
-      $(target).append('<option data-id="'+id+' data-name="'+fullName+'" data-source="'+categoryName+'">' + name + ' - ' + supplier + ' ' + productId + ' - ' + format + ' ' + type + ' yeast' + '</option>');
+      $(target).append('<option data-id="'+id+'" data-name="'+fullName+'" data-source="'+categoryName+'">' + name + ' - ' + supplier + ' ' + productId + ' - ' + format + ' ' + type + ' yeast' + '</option>');
 
       }
     }
@@ -196,7 +198,7 @@
   }
 
   if (!adjuncts) {
-    console.log('loop 1');
+    console.log('Adjuncts loop 1');
     $.get('https://cors-anywhere.herokuapp.com/http://api.brewerydb.com/v2/adjuncts/?key=166f0b6348fdccde864dc9aecb3d50bb', function() {
     }).done(function(data){
       // console.log(data);
@@ -212,6 +214,7 @@
       }
     });
   } else {
+    console.log("adjuncts else");
     optionsAppender(adjunctsFiltered, 'adjuncts');
   }
 
@@ -239,7 +242,7 @@
 
   // Click Handlers for Adding Ingredients
 
-  var ingredientAdd = function (ingredientId, ingredientName, categoryName, targetId) {
+  var ingredientAdd = function (ingredientId, ingredientName, targetId) {
 
     $(targetId).append(
       '<span class="builder-span" data-id="'+ingredientId+'">'+ingredientName+'</span></br>'
@@ -262,22 +265,22 @@
 
       // var selection = localSelect[0].value;
       if ($(this).attr('id') === 'brewtype-submit') {
-        ingredientAdd(localSelectId, localSelectName, "Type", "#builder-type");
+        ingredientAdd(localSelectId, localSelectName, "#builder-type");
         targetObject.brewtype = localSelectName;
 
       } else if ($(this).attr('id') === 'styles-submit') {
-        ingredientAdd(localSelectId, localSelectName, "Style", "#builder-style");
+        ingredientAdd(localSelectId, localSelectName, "#builder-style");
         targetObject.styles = localSelectName;
 
       } else if ($(this).attr('id') === 'fermentables-submit') {
-         ingredientAdd(localSelectId, localSelectName, "Fermentables", "#builder-fermentables");
+         ingredientAdd(localSelectId, localSelectName, "#builder-fermentables");
          var fermentablesObject = objectFinder(fermentablesFiltered, localSelectId);
          targetObject.fermentablesArray.push(fermentablesObject);
          localStorage.setItem('recipeArray', JSON.stringify(recipeArray));
          console.log(recipeArray);
 
       } else if ($(this).attr('id') === 'hops-submit') {
-        ingredientAdd(localSelectId, localSelectName, "Hops", "#builder-hops");
+        ingredientAdd(localSelectId, localSelectName, "#builder-hops");
 
         var hopsObject = objectFinder(hopsFiltered, localSelectId);
         targetObject.hopsArray.push(hopsObject);
@@ -288,7 +291,7 @@
       } else if ($(this).attr('id') === 'yeasts-submit') {
         console.log("local select name = ", localSelectName);
         console.log('local select id: ', localSelectId);
-        ingredientAdd(localSelectId, localSelectName, "Yeast", "#builder-yeasts");
+        ingredientAdd(localSelectId, localSelectName, "#builder-yeasts");
 
         var sourceObject = objectFinder(yeastsFiltered, localSelectId);
         targetObject.yeastsArray.push(sourceObject);
@@ -297,7 +300,7 @@
         console.log(recipeArray);
 
       } else if ($(this).attr('id') === 'adjuncts-submit') {
-        ingredientAdd(localSelectId, localSelectName, "Adjuncts", "#builder-adjuncts");
+        ingredientAdd(localSelectId, localSelectName, "#builder-adjuncts");
 
         var sourceObject = objectFinder(adjunctsFiltered, localSelectId);
         targetObject.adjunctsArray.push(sourceObject);
@@ -319,22 +322,10 @@
     }
   };
 
-  $("#recipe-submit").on('click', function () {
-    var targetRecipe = recipeArray[workingRecipeIndex];
-    targetRecipe.description = $('#description-box').value;
-
-    targetRecipe.notes = $('#description-box').value;
-  });
 
 
-  if (workingRecipeIndex) {
-    $('#name-display').text(recipeArray[workingRecipeIndex].name);
-  }
-  // $('#name-box').on('keyup keydown keypress', function(event) {
-  //   var input = $('#name-box').val();
-  //   console.log(input);
-  //   $('#name-display').text(input);
-  // });
+
+
 
   $('#description-box').on('keyup keydown keypress', function(event) {
     var input = $('#description-box').val();
@@ -361,29 +352,82 @@
 //     });
 //  };
 
+  // Recipe Button Workflow
 
-$('#name-submit').on('click', function () {
-  var recipeName = $('#name-input').val();
-  console.log("namebox value: ", recipeName);
-  var newRecipe = new Recipe(recipeName);
-  workingRecipeIndex = recipeArray.length;
-  recipeArray.push(newRecipe);
-  $('#recipe-frontpage').fadeOut('slow', function () {
-    $('#new-recipe').fadeIn();
-    $('#recipe-builder').css("opacity", "1");
+  $('#new-recipe-btn').on('click', function () {
+    $('#recipe-search, #new-recipe-btn').fadeOut('slow', function () {
+      $('#name-box').fadeIn('slow', function() {
+        $('#name-box').show();
+      });
+    });
   });
-  console.log(recipeArray);
-  localStorage.setItem('recipeArray', JSON.stringify(recipeArray));
-});
 
+  $('#name-submit').on('click', function () {
+    var recipeName = $('#name-input').val();
+    var unique = true;
 
+    for (var i = 0; i < recipeArray.length; i++) {
+      if (recipeName === recipeArray[i].name) {
+        unique = false;
+      }
+    }
 
+    $('.start-btn').on('click', function() {
+      $('#recipe-frontpage, #new-recipe-btn, #recipe-search').show();
+      $('#name-box').hide();
+      $('#new-recipe').hide();
+    });
 
-$('#new-recipe-btn').on('click', function () {
-  $('#recipe-search, #new-recipe-btn').fadeOut('slow', function () {
-    $('#name-box').fadeIn();
+    if (unique && recipeName.length) {
+      console.log("namebox value: ", recipeName);
+      var newRecipe = new Recipe(recipeName);
+      workingRecipeIndex = recipeArray.length;
+      recipeArray.push(newRecipe);
+      $('#builder-name').append('<h4 id="name-display">'+ recipeName + '</h4>');
+      $('#recipe-frontpage').fadeOut('slow', function () {
+        $('#new-recipe').fadeIn();
+        $('#recipe-builder').css("opacity", "1");
+      });
+      console.log(recipeArray);
+      localStorage.setItem('recipeArray', JSON.stringify(recipeArray));
+    } else if (!unique){
+      alert("That name is already taken, please choose another.");
+    } else if (recipeName.length < 1) {
+      alert("No name detected. Please enter some characters.");
+    } else {
+      console.log("This is failing for some reason and I don't know why.");
+    }
   });
-});
 
+  $("#recipe-submit").on('click', function () {
+    var targetRecipe = recipeArray[workingRecipeIndex];
+    targetRecipe.description = $('#description-box').val();
+    targetRecipe.notes = $('#notes-box').val();
+    console.log(targetRecipe.description);
+    console.log(targetRecipe.notes);
+    localStorage.setItem('recipeArray', JSON.stringify(recipeArray));
+    console.log(recipeArray);
+    $('#recipe-builder').css("opacity", "0").find('.refreshable').empty();
+    $('#new-recipe').hide(function () {
+      $('#recipe-frontpage').fadeIn('slow');
+    });
+    $('#name-box').fadeOut();
+    $('#name-input').val('');
+    $('#recipe-frontpage, #new-recipe-btn, #recipe-search').fadeIn();
+    $('#recipe-list').css("opacity", "1");
+    recipeList.push(targetRecipe);
+    appendRecipe();
+  });
+
+  var appendRecipe = function () {
+    $('#recipe-list').empty();
+    for (var i = 0; i < recipeList.length; i++) {
+      var recipeName = recipeList[i].name;
+
+      $('#recipe-list').append(
+        '<span>' + recipeName +'</span></br>'
+      );
+    }
+  };
 
 });
