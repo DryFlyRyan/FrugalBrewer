@@ -139,7 +139,9 @@ option {
   font-size: 16pt;
 }
 
+#recipe-list-container,
 #recipe-list,
+#shopping-list,
 #recipe-builder {
   opacity: 0;
   transition: .5s;

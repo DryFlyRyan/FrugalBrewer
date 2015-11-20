@@ -456,7 +456,7 @@
     targetRecipe.description = $('#description-box').val();
     targetRecipe.notes = $('#notes-box').val();
 
-    if (targetRecipe.style.length && targetRecipe.brewtype.length) {
+    if (targetRecipe.styles && targetRecipe.brewtype) {
       console.log(targetRecipe.description);
       console.log(targetRecipe.notes);
       localStorage.setItem('recipeArray', JSON.stringify(recipeArray));
@@ -468,13 +468,17 @@
       $('#name-box').fadeOut();
       $('#name-input').val('');
       $('#recipe-frontpage, #new-recipe-btn, #recipe-search').fadeIn();
+      $('#recipe-list-container').css("opacity", "1");
       $('#recipe-list').css("opacity", "1");
+      $('#shopping-list').css("opacity", "1");
       recipeList.push(targetRecipe);
       appendRecipe();
-    } else if (!targetRecipe.style.length) {
+    } else if (!targetRecipe.styles) {
       alert("What style is this beer?");
-    } else if (!targetRecipe.beertype.) {
-      alert("")
+    } else if (!targetRecipe.brewtype) {
+      alert("How do you plan to do this?");
+    } else {
+      alert("Something went wrong and I don't know what. You should feel bad.");
     }
   });
 
@@ -482,11 +486,27 @@
     $('#recipe-list').empty();
     for (var i = 0; i < recipeList.length; i++) {
       var recipeName = recipeList[i].name;
-      var recipeStyle = recipeList[i].style;
+      var recipeStyle = recipeList[i].styles;
 
       $('#recipe-list').append(
-        '<span>' + recipeName + ' ' + recipeStyle + '</span></br>'
+        '<span>' + recipeName + ' - ' + recipeStyle + '</span></br>'
       );
+    }
+  };
+
+  var ingredientLister = function () {
+    for(var i = 0; i < recipeList.length; i++) {
+      var targetRecipe = recipeList[i]
+      for (var f = 0; f < targetRecipe.fermentablesArray.length; f++) {
+      var targetId = targetRecipe.fermentablesArray[f].id;
+
+      var onPageId = $('#sl-fermentables').find('span').attr('data-id');
+
+      var onPageQty = $('#sl-fermentables').find('span').attr('data-id');
+        if (targetId === onPageId) {
+
+        }
+      }
     }
   };
 
