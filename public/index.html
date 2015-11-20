@@ -96,8 +96,8 @@
                 <div class="" id="recipe-frontpage">
                   <button type="submit" name="button" class="button-large btn btn-primary btn-lg" id="new-recipe-btn">Make a New Recipe</button>
                   <div class="" id='name-box'>
-                    <label for="name">Name your Brew:</label>
-                    <input type="text" name="name" placeholder="" id="name-input">
+                    <label for="name-input">Name your Brew:</label>
+                    <input type="text" name="namebox" placeholder="" id="name-input">
                     <a href="#" id="name-submit">
                       <span class="icon glyphicon glyphicon-plus-sign"></span></a>
                   </div>
@@ -109,9 +109,9 @@
                 <form class="form" id="new-recipe">
 
                   <div id="brew-div">
-                    <label for="brew-type">Brew Type</label></br>
-                    <select id="brew-selector" class="select-group" name="brew-type">Type
-                      <optgroup>
+                    <label for="brew-selector">Brew Type</label>
+                    <select id="brew-selector" class="select-group" name="brew-type">
+                      <optgroup label="brew-type-og">
                         <option data-id="1" data-name="All-Grain">All-Grain</option>
                         <option data-id="2" data-name="Partial-Mash">Partial-Mash</option>
                         <option data-id="3" data-name="Extract">Extract</option>
@@ -121,8 +121,8 @@
                   </div>
                   <div id="styles-div">
                     <label for="styles-selector">Styles</label>
-                    <select id="styles-selector"class="select-group" name="">
-                      <optgroup class='api-destination'>
+                    <select id="styles-selector" class="select-group">
+                      <optgroup label="styles-optgroup" class='api-destination'>
                       </optgroup>
                     </select>
                     <a href="#" id='styles-submit'><span class="icon glyphicon glyphicon-plus-sign"></span></a>
@@ -130,13 +130,13 @@
 
                   <div id='fermentables-div'>
                     <label for="fermentables-selector">Fermentables</label>
-                    <select id="fermentables-selector"class="select-group" name="">
+                    <select id="fermentables-selector" class="select-group">
                       <optgroup label="fermentables" class='api-destination'>
                       </optgroup>
                     </select>
-                    <input type="form" name="name" value="" class='weight-selector' placeholder="Amount" id = "fermentables-qty">
+                    <input type="text" name="name" value="" class='weight-selector' placeholder="Amount" id = "fermentables-qty">
 
-                    <select class="unit-selector" name="" id = "fermentables-units">
+                    <select class="unit-selector" id = "fermentables-units">
                       <optgroup label="Units">
 
                         <option data-name="pound(s)">lbs</option>
@@ -149,13 +149,13 @@
                   </div>
                   <div id="hops-div">
                     <label for="hops-selector">Hops</label>
-                    <select id="hops-selector"class="" name="">
+                    <select id="hops-selector">
                       <optgroup label="Hops" class='api-destination'>
                       </optgroup>
                     </select>
-                    <input type="form" name="name" value="" class='weight-selector' placeholder="Amount" id = "hops-qty">
+                    <input type="text" name="name" value="" class='weight-selector' placeholder="Amount" id = "hops-qty">
 
-                    <select class="unit-selector" name="" id = "hops-units">
+                    <select class="unit-selector" id = "hops-units">
                       <optgroup label="Units">
                         <option data-name="ounce(s)">oz</option>
                         <option data-name="gram(s)">g</option>
@@ -166,14 +166,14 @@
 
                   <div id="yeasts-div">
                     <label for="yeasts-selector">Yeast</label>
-                    <select id="yeasts-selector" class="" name="">
+                    <select id="yeasts-selector">
                       <optgroup label="yeasts" class='api-destination'>
                       </optgroup>
                     </select>
 
-                    <input type="form" name="name" value="" class='weight-selector' placeholder="Amount" id = "yeasts-qty">
+                    <input type="text" name="name" value="" class='weight-selector' placeholder="Amount" id = "yeasts-qty">
 
-                    <select class="unit-selector" name="" id = "yeasts-units">
+                    <select class="unit-selector" id = "yeasts-units">
                       <optgroup label="Units">
                         <option data-name="vial(s)">vial(s)</option>
                         <option data-name="packet(s)">packet(s)</option>
@@ -183,13 +183,13 @@
                   </div>
                   <div id="adjuncts-div">
                     <label for="adjuncts-selector" class='api-destination'>Extras</label>
-                    <select id="adjuncts-selector"class="" name="">
+                    <select id="adjuncts-selector">
                       <optgroup label="adjuncts" class="api-destination">
                       </optgroup>
                     </select>
-                    <input type="form" name="name" value="" class='weight-selector' placeholder="Amount" id = "adjuncts-qty">
+                    <input type="text" name="name" value="" class='weight-selector' placeholder="Amount" id = "adjuncts-qty">
 
-                    <select class="unit-selector" name="" id = "adjuncts-units">
+                    <select class="unit-selector" id="adjuncts-units">
                       <optgroup label="Units">
                         <option data-name="ounce(s)" data-code="oz">oz</option>
                         <option data-name="gram(s)" data-code="g">g</option>
@@ -200,11 +200,11 @@
                     <a href="#" id='adjuncts-submit'><span class="icon glyphicon glyphicon-plus-sign"></span></a>
                   </div>
                   <div id='description-div'>
-                    <textarea name="description" id="description-box" rows="8" cols="55" placeholder="Enter Directions and Description Here"></textarea></br>
+                    <textarea name="description" id="description-box" rows="8" cols="55" placeholder="Enter Directions and Description Here"></textarea>
                   </div>
 
                   <div id='notes-div'>
-                    <textarea name="notes" id="notes-box" rows="8" cols="55" placeholder="Enter Notes Here"></textarea></br>
+                    <textarea name="notes" id="notes-box" rows="8" cols="55" placeholder="Enter Notes Here"></textarea>
                   </div>
                 </form>
               </div>
