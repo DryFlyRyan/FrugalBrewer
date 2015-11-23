@@ -510,6 +510,13 @@
     }
   };
 
+  // var ingredientPoster = function (targetObject) {
+  //   for (var f = 0; f < targetObject.fermentablesArray; f++) {
+  //     var targetFermentable = targetObject.fermentablesArray[f];
+  //     if (totalArray.fermentablesArray.indexOf(targetFermentable))
+  //   }
+  // }
+
   var ingredientLister = function () {
     console.log('listing ingredients');
     for (var i = 0; i < recipeList.length; i++)
