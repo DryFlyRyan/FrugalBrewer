@@ -10,6 +10,15 @@
 
   var recipeList = [];
 
+  var totalArray = [
+    {
+      fermentablesArray: [],
+      hopsArray: [],
+      yeastsArray: [],
+      adjunctsArray: []
+    }
+  ];
+
   if (!recipeArray) {
     recipeArray = [
       {
