@@ -8,6 +8,15 @@
 
   var recipeArray = JSON.parse(localStorage.getItem('recipeArray'));
 
+  var recipeMaster = [
+    {
+      fermentablesArray: [],
+      hopsArray: [],
+      yeastsArray: [],
+      adjunctsArray: []
+    }
+  ];
+
   var recipeList = [];
 
   if (!recipeArray) {
@@ -479,7 +488,6 @@
       $('#shopping-list').css("opacity", "1");
       recipeList.push(targetRecipe);
       appendRecipe();
-      ingredientLister();
     } else if (!targetRecipe.styles) {
       alert("What style is this beer?");
     } else if (!targetRecipe.brewtype) {
@@ -499,176 +507,6 @@
         '<span>' + recipeName + ' - ' + recipeStyle + '</span></br>'
       );
     }
-  };
-
-  var ingredientLister = function () {
-    console.log('listing ingredients');
-    for (var i = 0; i < recipeList.length; i++)
-      var targetRecipe = recipeList[i];
-
-      //fermentables
-      for (var f = 0; f < targetRecipe.fermentablesArray.length; f++) {
-      console.log('writing fermentables');
-
-      // $('#sl-fermentables').empty();
-
-      var targetId = targetRecipe.fermentablesArray[f].id;
-
-      var targetQty = targetRecipe.fermentablesArray[f].quantity;
-
-      var targetName = targetRecipe.fermentablesArray[f].name;
-
-      var targetUnits = targetRecipe.fermentablesArray[f].units;
-
-      var onPageId = targetId+targetName;
-      var onPageQty = targetQty+targetName;
-
-      console.log(targetQty);
-
-      console.log(targetId);
-      console.log(targetName);
-      console.log(targetUnits);
-      console.log(onPageId);
-
-      console.log(onPageQty);
-
-        // if ($('#'+onPageId).length) {
-        //   console.log('id matched');
-        //   var originalAmt = $('#'+onPageId+'q').data('qty');
-        //   var updatedAmt = originalAmt + targetQty;
-        //   $('#'+onPageQty+'q').data('qty', updatedAmt);
-        // } else {
-          // console.log('id not found');
-          $('#sl-fermentables').append(
-            '<span id="'+onPageId+'"data-id="'+ targetId + '">'+ targetName +' - </span>' +
-            '<span id="'+onPageId+'q"data-qty="' + targetQty + '">' + targetQty+ ' ' + targetUnits + '</span></br>'
-
-          );
-        // }
-      }
-
-      for (var h = 0; h < targetRecipe.hopsArray.length; h++) {
-      console.log('writing hops');
-
-      // $('#sl-fermentables').empty();
-
-      var targetId = targetRecipe.hopsArray[h].id;
-
-      var targetQty = targetRecipe.hopsArray[h].quantity;
-
-      var targetName = targetRecipe.hopsArray[h].name;
-
-      var targetUnits = targetRecipe.hopsArray[h].units;
-
-      var onPageId = targetId+targetName;
-      var onPageQty = targetQty+targetName;
-
-      console.log(targetQty);
-
-      console.log(targetId);
-      console.log(targetName);
-      console.log(targetUnits);
-      console.log(onPageId);
-
-      console.log(onPageQty);
-
-        // if ($('#'+onPageId).length) {
-        //   console.log('id matched');
-        //   var originalAmt = $('#'+onPageId+'q').data('qty');
-        //   var updatedAmt = originalAmt + targetQty;
-        //   $('#'+onPageQty+'q').data('qty', updatedAmt);
-        // } else {
-          // console.log('id not found');
-          $('#sl-hops').append(
-            '<span id="'+onPageId+'"data-id="'+ targetId + '">'+ targetName +' - </span>' +
-            '<span id="'+onPageId+'q"data-qty="' + targetQty + '">' + targetQty+ ' ' + targetUnits + '</span></br>'
-
-          );
-        // }
-      }
-
-      for (var g = 0; g < targetRecipe.yeastsArray.length; g++) {
-      console.log('writing yeasts');
-
-      // $('#sl-fermentables').empty();
-
-      var targetId = targetRecipe.yeastsArray[g].id;
-
-      var targetQty = targetRecipe.yeastsArray[g].quantity;
-
-      var targetName = targetRecipe.yeastsArray[g].name;
-
-      var targetUnits = targetRecipe.yeastsArray[g].units;
-
-      var onPageId = targetId+targetName;
-      var onPageQty = targetQty+targetName;
-
-      console.log(targetQty);
-
-      console.log(targetId);
-      console.log(targetName);
-      console.log(targetUnits);
-      console.log(onPageId);
-
-      console.log(onPageQty);
-
-        // if ($('#'+onPageId).length) {
-        //   console.log('id matched');
-        //   var originalAmt = $('#'+onPageId+'q').data('qty');
-        //   var updatedAmt = originalAmt + targetQty;
-        //   $('#'+onPageQty+'q').data('qty', updatedAmt);
-        // } else {
-          // console.log('id not found');
-          $('#sl-yeasts').append(
-            '<span id="'+onPageId+'"data-id="'+ targetId + '">'+ targetName +' - </span>' +
-            '<span id="'+onPageId+'q"data-qty="' + targetQty + '">' + targetQty+ ' ' + targetUnits + '</span></br>'
-
-          );
-        // }
-      }
-
-      for (var a = 0; a < targetRecipe.adjunctsArray.length; a++) {
-      console.log('writing adjuncts');
-
-      // $('#sl-adjuncts').empty();
-
-      var targetId = targetRecipe.ajunctsArray[f].id;
-
-      var targetQty = targetRecipe.adjunctsArray[f].quantity;
-
-      var targetName = targetRecipe.adjunctsArray[f].name;
-
-      var targetUnits = targetRecipe.adjunctsArray[f].units;
-
-      var onPageId = targetId+targetName;
-      var onPageQty = targetQty+targetName;
-
-      console.log(targetQty);
-
-      console.log(targetId);
-      console.log(targetName);
-      console.log(targetUnits);
-      console.log(onPageId);
-
-      console.log(onPageQty);
-
-        // if ($('#'+onPageId).length) {
-        //   console.log('id matched');
-        //   var originalAmt = $('#'+onPageId+'q').data('qty');
-        //   var updatedAmt = originalAmt + targetQty;
-        //   $('#'+onPageQty+'q').data('qty', updatedAmt);
-        // } else {
-          // console.log('id not found');
-          $('#sl-adjuncts').append(
-            '<span id="'+onPageId+'"data-id="'+ targetId + '">'+ targetName +' - </span>' +
-            '<span id="'+onPageId+'q"data-qty="' + targetQty + '">' + targetQty+ ' ' + targetUnits + '</span></br>'
-
-          );
-        // }
-      }
-
-
-
   };
 
 });
