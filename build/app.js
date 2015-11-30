@@ -267,7 +267,7 @@
 
   // Working Arrays and Objects for Recipe WORKFLOW
 
-  var workingRecipe = new Recipe();
+  var workingRecipe;
 
   // Sutmit Name for New Recipe
 
@@ -294,10 +294,12 @@
       // ** Changing to Array Reading Formula ** //
 
       // $('#builder-name').append('<h4 id="name-display">'+ recipeName + '</h4>');
-      // $('#recipe-frontpage').fadeOut('slow', function () {
-      //   $('#new-recipe').fadeIn();
-      //   $('#recipe-builder').css("opacity", "1");
-      // });  
+
+
+      $('#recipe-frontpage').fadeOut('slow', function () {
+        $('#new-recipe').fadeIn();
+        $('#recipe-builder').css("opacity", "1");
+      });
     } else if (!unique){
       alert("That name is already taken, please choose another.");
     } else if (recipeName.length < 1) {
@@ -305,6 +307,7 @@
     } else {
       console.log("This is failing for some reason and I don't know why.");
     }
+    console.log(workingRecipe);
   });
 
   // Click Handlers for Adding Ingredients
@@ -325,14 +328,15 @@
 
   $('a').click(function (event) {
     console.log(event.target);
-    if ($(this).attr('id')) {
+    console.log($(this).attr('id'));
+    if ($(this).attr('id') && $(this).closest('a').attr('id') !== "name-submit") {
       console.log('if statement');
 
       var targetObject = workingRecipe;
       var workingQuantity = null;
       var workingUnits = null;
 
-      var destinationObject = targetObject.ingredientsArray[targetObject.ingredientsArray.length - 1];
+      var destinationObject = targetObject.ingredientsArray[targetObject.ingredientsArray.length - 1] || null;
 
       var localSelectId = $(this).closest('div').find('option:selected').attr('data-id');
 
@@ -429,6 +433,15 @@
     $('#notes-display').text(input);
   });
 
+  var displayRecipe = function () {
+    if (workingRecipe.name.length) {
+      var workingName = workingRecipe.name;
+      $('#builder-name').append(
+        '<h3>' + workingName + '</h3>'
+
+      );
+    }
+  };
 
 
   // Submit Recipe
