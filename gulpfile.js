@@ -3,7 +3,7 @@ var minify = require('gulp-minify');
 var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
 
-gulp.task('serve', ['sass', 'compress'], function() {
+gulp.task('serve', ['sass'], function() {
 
 	browserSync.init({
 			server: {
@@ -12,7 +12,7 @@ gulp.task('serve', ['sass', 'compress'], function() {
 	});
 
 	gulp.watch("./**/*.scss", ['sass']);
-	gulp.watch("./js/*.js", ['compress']);
+	// gulp.watch("./js/*.js", ['compress']);
 	gulp.watch("./*.html").on('change', browserSync.reload);
 
 });
